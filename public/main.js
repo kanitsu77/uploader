@@ -1,4 +1,5 @@
 
+
 async function uploadFile() {
 
     const fileInput = document.getElementById('file')
@@ -6,10 +7,7 @@ async function uploadFile() {
 
     const file = fileInput.files[0]
 
-    if (!file) {
-        alert('Pilih file dulu')
-        return
-    }
+    if (!file) return alert('Pilih file')
 
     const form = new FormData()
     form.append('file', file)
@@ -26,22 +24,23 @@ async function uploadFile() {
 
         const res = await req.json()
 
+        console.log(res)
+
         if (!res.status) {
-            result.innerHTML = 'Upload gagal'
+            result.innerHTML = res.message
             return
         }
 
         result.innerHTML = `
-URL:
-<br><br>
-
 <a href="${res.result}" target="_blank">
 ${res.result}
 </a>
-
-<img src="${res.result}">
 `
 
     } catch (e) {
 
-        result.innerHTML = 'Terjadi 
+        result.innerHTML = 'Error upload'
+
+    }
+
+        }
